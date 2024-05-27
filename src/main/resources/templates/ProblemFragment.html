@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/ProblemStyle.css">
+    <script src="../js/ProblemScript.js"></script>
+</head>
+<body>
+<div class="container">
+    <div th:fragment="ProblemFragment" class="problem" id="problemDiv">
+        <table>
+            <tr th:each="problem : ${displayedProblems}">
+                <td th:id="'problem-' + ${problem.contestId} + '-' + ${problem.index}"
+                    class="problemInfo" th:attr="onclick='openLink(' + ${problem.contestId} + ',\'' + ${problem.index}+ '\')'"
+                    th:text="${problem.contestId} + ' ' + ${problem.index} + ' ' + ${problem.name} + ' ' + ${problem.rating}">
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

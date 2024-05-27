@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/HandleStyle.css">
+</head>
+<body>
+    <div th:fragment="HandleDisplayFragment">
+        <p th:text="'Current User: ' + ${handle}" id="LogInDisplay"></p>
+        <p th:text="'Current Rating: ' + ${rating}" id="RatingDisplay"></p>
+    </div>
+</body>
+</html>

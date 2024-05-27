@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Codeforces Practice</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../js/SubmitHandle.js"></script>
+    <script src="../js/GenerateProblem.js"></script>
+    <script src="../js/Dropdown.js"></script>
+    <script src="../js/SliderScript.js"></script>
+    <script src="../js/GenerateRecommended.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<h1 id="header">Codeforces Recommendation Engine</h1>
+<div class="handleSubmission">
+    <input type="text" id="handle" placeholder="Enter Handle">
+    <button id="submitHandle">Submit</button>
+    <div class="loading" id="loadingIcon"></div>
+</div>
+<div id="Results"></div>
+<p>
+    <label for="rating" style="color: #ffffff; margin-left: 850px">Rating range:</label>
+    <input type="text" id="rating" readonly style="background-color: #272140; border-color: #272140">
+</p>
+<div id="slider-range" style="width: 30%; margin-left: 650px; background-color: #676767; border-color: #676767"></div>
+<div class="problemGeneration">
+    <button id="generateProblem">Generate Random</button>
+    <div class="multi-select-dropdown">
+        <div id="tags" class="form-control dropdown-toggle">
+
+        </div>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject1" value="2-sat">
+                <label for="subject1">2-sat</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject2" value="binary search">
+                <label for="subject2">binary search</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject3" value="bitmasks">
+                <label for="subject3">bitmasks</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject4" value="brute force">
+                <label for="subject4">brute force</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject5" value="chinese remainder theorem">
+                <label for="subject5">CRT</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject6" value="combinatorics">
+                <label for="subject6">combinatorics</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject7" value="constructive algorithms">
+                <label for="subject7">constructive</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject8" value="data structures">
+                <label for="subject8">data structures</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject9" value="dfs and similar">
+                <label for="subject9">dfs</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject10" value="divide and conquer">
+                <label for="subject10">divide and conquer</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject11" value="dp">
+                <label for="subject11">dp</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject12" value="dsu">
+                <label for="subject12">dsu</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject13" value="expression parsing">
+                <label for="subject13">expression parsing</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject14" value="fft">
+                <label for="subject14">fft</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject15" value="flows">
+                <label for="subject15">flows</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject16" value="games">
+                <label for="subject16">games</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject17" value="geometry">
+                <label for="subject17">geo</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject18" value="graph matchings">
+                <label for="subject18">graph matchings</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject19" value="graphs">
+                <label for="subject19">graphs</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject20" value="greedy">
+                <label for="subject20">greedy</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject21" value="hashing">
+                <label for="subject21">hashing</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject22" value="implementation">
+                <label for="subject22">implementation</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject23" value="interactive">
+                <label for="subject23">interactive</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject24" value="math">
+                <label for="subject24">math</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject25" value="matrices">
+                <label for="subject25">matricies</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject26" value="meet-in-the-middle">
+                <label for="subject26">meet in the middle</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject27" value="number theory">
+                <label for="subject27">number theory</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject28" value="probabilities">
+                <label for="subject28">probabilities</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject29" value="schedules">
+                <label for="subject29">schedules</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject30" value="shortest paths">
+                <label for="subject30">shortest paths</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject31" value="sortings">
+                <label for="subject31">sortings</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject32" value="string suffix structures">
+                <label for="subject32">string suffix structures</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject33" value="strings">
+                <label for="subject33">strings</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject34" value="ternary search">
+                <label for="subject34">ternary search</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject35" value="trees">
+                <label for="subject35">trees</label>
+            </a>
+            <a class="dropdown-item" href="#">
+                <input type="checkbox" id="subject36" value="two pointers">
+                <label for="subject36">two pointers</label>
+            </a>
+        </div>
+    </div>
+    <button id="generateRecommended">Generate Recommended</button>
+</div>
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScho7dB2CDv1e9OuSZQgSD3qPkr21LVYe8v7oJS4c8gFp9fMw/viewform" class="link" target="_blank" rel="noopener noreferrer">Contact Me</a>
+<div id="problem"></div>
+</body>
+</html>

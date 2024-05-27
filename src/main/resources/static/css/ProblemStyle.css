@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #272140; /* Optional: for visual reference */
+}
+
+.problemInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ece2e2;
+    border-color: #ece2e2;
+    cursor: pointer;
+    width: 100%;
+    height: 60%;
+    transition: background-color 0.1s ease;
+    border-radius: 100px;
+}
+
+.problemInfo:hover {
+    background-color: #bdbdbd;
+}

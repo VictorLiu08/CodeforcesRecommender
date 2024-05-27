@@ -1,0 +1,239 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #272140;
+}
+
+#header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    font-weight: 100;
+    color: #ffffff;
+}
+
+#handle {
+    border-radius: 90px;
+    background-color: #777777;
+    border-color: #777777;
+    position: relative;
+
+}
+
+#handle::placeholder {
+    opacity: 60%;
+    color: #ffffff;
+}
+
+input[type="text"] {
+    color: #ffffff;
+    width: 300px;
+    padding: 10px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.handleSubmission {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#submitHandle, #generateProblem, #generateRecommended {
+    padding: 10px 20px;
+    background-color: #1E3C89;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+#submitHandle:hover, #generateProblem:hover, #generateRecommended:hover {
+    background-color: #0056b3;
+}
+
+#submitHandle:disabled, #generateRecommended:disabled {
+    background-color: #777777;
+    cursor: not-allowed;
+}
+
+.multi-select-dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 10px 0;
+    border: 1px solid #777777;
+    border-radius: 4px;
+    padding: 5px;
+    width: calc(300px - 10px); /* Adjust for padding */
+    min-height: 38px; /* Adjust based on your design */
+    background-color: #777777;
+    box-sizing: border-box;
+}
+
+.problemGeneration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.dropdown-toggle {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0;
+    height: auto;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #777777;
+    min-width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-radius: 4px;
+    z-index: 1;
+    top: 100%; /* Adjust as needed */
+    left: 0;
+    scrollbar-color: #555555 #777777;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background-color: #333333;
+}
+
+.dropdown-item {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    max-height: 200px;
+    color: black;
+}
+
+.dropdown-item:hover {
+    background-color: #ddd;
+}
+
+.selected-tag {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #007bff;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.remove-tag {
+    display: inline-block;
+    margin-left: 8px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.remove-tag:hover {
+    color: red;
+}
+
+.problem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.slider-container {
+    width: 50%; /* Width of the outside container */
+    justify-content: center;
+    align-items: center;
+    margin-left: 435px;
+    margin-top: 20px;
+}
+
+/* The slider itself */
+.slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 25px; /* Specified height */
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #04AA6D; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #04AA6D; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+#rangeDisplay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    color: #ffffff;
+}
+
+.loading {
+    display: none; /* Hidden by default */
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.link {
+    position: fixed;
+    bottom: 10px; /* Adjust as needed */
+    left: 10px;   /* Adjust as needed */
+    text-decoration: none;
+    color: white;  /* Adjust the color as needed */
+    background-color: #1E3C89; /* Background color if needed */
+    padding: 5px 10px; /* Adjust padding as needed */
+    border-radius: 100px; /* Rounded corners if needed */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); /* Optional shadow */
+}
+
+.link:hover {
+    background-color: lightblue; /* Change background on hover */
+}
