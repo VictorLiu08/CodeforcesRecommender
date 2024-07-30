@@ -1,8 +1,8 @@
 $(document).ready(function () {
     $('#generateProblem').click(function () {
         var selectedTags = [];
-        var minRating = $("#rating").val().split(" - ")[0];
-        var maxRating = $("#rating").val().split(" - ")[1];
+        var minRating = $("#slider-range").slider("values", 0);
+        var maxRating = $("#slider-range").slider("values", 1);
         $('#tags .selected-tag').each(function () {
             selectedTags.push($(this).text().slice(0, -1));
         });
@@ -11,11 +11,11 @@ $(document).ready(function () {
             type: 'post',
             data: {
                 tags: selectedTags.join(','),
-                minRating: minRating.toString(),
-                maxRating: maxRating.toString()
+                minRating: minRating,
+                maxRating: maxRating
             },
             success: function (response) {
-                $('#problem').html(response);
+                $('#results').html(response);
             }
         });
     });

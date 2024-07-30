@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import jakarta.servlet.http.HttpSession;
+import org.json.*;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -26,6 +27,44 @@ public class AppController {
 
     @PostMapping("/process")
     public ModelAndView process(HttpSession session, @RequestParam String handle) throws Exception {
+        String[] subjects = {
+                "2-sat",
+                "binary search",
+                "bitmasks",
+                "brute force",
+                "chinese remainder theorem",
+                "combinatorics",
+                "constructive algorithms",
+                "data structures",
+                "dfs and similar",
+                "divide and conquer",
+                "dp",
+                "dsu",
+                "expression parsing",
+                "fft",
+                "flows",
+                "games",
+                "geometry",
+                "graph matchings",
+                "graphs",
+                "greedy",
+                "hashing",
+                "implementation",
+                "interactive",
+                "math",
+                "matrices",
+                "meet-in-the-middle",
+                "number theory",
+                "probabilities",
+                "schedules",
+                "shortest paths",
+                "sortings",
+                "string suffix structures",
+                "strings",
+                "ternary search",
+                "trees",
+                "two pointers"
+        };
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://codeforces.com/api/user.status?handle=" + handle))
@@ -43,7 +82,95 @@ public class AppController {
         ModelAndView modelAndView = new ModelAndView("HandleDisplayFragment");
         modelAndView.addObject("handle", handle);
         modelAndView.addObject("rating", getRating(handle));
+        HttpRequest infoRequest = HttpRequest.newBuilder()
+                .uri(URI.create("https://codeforces.com/api/user.info?handles=" + handle))
+                .build();
+        String json = client.send(infoRequest, HttpResponse.BodyHandlers.ofString()).body();
+        System.out.println(json);
+        JSONObject jsonObject = new JSONObject(json);
+        HashMap<String, Integer> tagCorrect = getTagCorrect(session, subjects);
+        HashMap<String, Integer> tagIncorrect = getTagIncorrect(session, subjects);
+        HashMap<String, Integer> tagUnattempted = getTagUnattempted(tagCorrect, tagIncorrect);
+        System.out.println(tagCorrect);
+        modelAndView.addObject("maxRating", jsonObject.getJSONArray("result").getJSONObject(0).getInt("maxRating"));
+        modelAndView.addObject("rank", jsonObject.getJSONArray("result").getJSONObject(0).getString("rank"));
+        modelAndView.addObject("maxRank", jsonObject.getJSONArray("result").getJSONObject(0).getString("maxRank"));
+        modelAndView.addObject("titlePhoto", jsonObject.getJSONArray("result").getJSONObject(0).getString("titlePhoto"));
+        modelAndView.addObject("tagCorrect", tagCorrect);
+        modelAndView.addObject("tagIncorrect", tagIncorrect);
+        modelAndView.addObject("tagUnattempted", tagUnattempted);
+        modelAndView.addObject("tags", subjects);
         return modelAndView;
+    }
+
+    public HashMap<String, Integer> getTagCorrect(HttpSession session, String[] tags) {
+        ArrayList<Submission> userSubmissions = (ArrayList<Submission>) session.getAttribute("userSubmissions");
+        HashMap<String, Integer> tagCorrect = new HashMap<>();
+        HashSet<String> problemsSolved = new HashSet<>();
+        for (Submission submission : userSubmissions) {
+            if (submission.verdict.equals("OK") && !problemsSolved.contains(submission.problem.contestId + submission.problem.index)) {
+                problemsSolved.add(submission.problem.contestId + submission.problem.index);
+                for (String tag : submission.problem.tags) {
+                    tagCorrect.put(tag, tagCorrect.getOrDefault(tag, 0) + 1);
+                }
+            }
+        }
+        for (String tag : tags) {
+            if (!tagCorrect.containsKey(tag)) {
+                tagCorrect.put(tag, 0);
+            }
+        }
+        return tagCorrect;
+    }
+
+    public HashMap<String, Integer> getTagIncorrect(HttpSession session, String[] tags) {
+        ArrayList<Submission> userSubmissions = (ArrayList<Submission>) session.getAttribute("userSubmissions");
+        HashMap<String, Integer> tagIncorrect = new HashMap<>();
+        HashSet<String> problemsSolved = new HashSet<>();
+        for (Submission submission : userSubmissions) {
+            if (!submission.verdict.equals("OK") && !problemsSolved.contains(submission.problem.contestId + submission.problem.index)) {
+                problemsSolved.add(submission.problem.contestId + submission.problem.index);
+                for (String tag : submission.problem.tags) {
+                    tagIncorrect.put(tag, tagIncorrect.getOrDefault(tag, 0) + 1);
+                }
+            }
+        }
+        for (Submission submission : userSubmissions) {
+            if (submission.verdict.equals("OK") && problemsSolved.contains(submission.problem.contestId + submission.problem.index)) {
+                problemsSolved.remove(submission.problem.contestId + submission.problem.index);
+                for (String tag : submission.problem.tags) {
+                    tagIncorrect.put(tag, tagIncorrect.getOrDefault(tag, 0) - 1);
+                    if (tagIncorrect.get(tag) == 0) {
+                        tagIncorrect.remove(tag);
+                    }
+                }
+            }
+        }
+        for (String tag : tags) {
+            if (!tagIncorrect.containsKey(tag)) {
+                tagIncorrect.put(tag, 0);
+            }
+        }
+        return tagIncorrect;
+    }
+
+    public static HashMap<String, Integer> getTagUnattempted(HashMap<String, Integer> tagCorrect, HashMap<String, Integer> tagIncorrect) {
+        Problemset problemset = ApplicationData.getApplicationData();
+        HashMap<String, Integer> tagFrequency = new HashMap<>();
+        for (Problem problem : problemset.problemSet) {
+            for (String tag : problem.tags) {
+                tagFrequency.put(tag, tagFrequency.getOrDefault(tag, 0) + 1);
+            }
+        }
+        for (String tag : tagFrequency.keySet()) {
+            if (tagCorrect.containsKey(tag)) {
+                tagFrequency.put(tag, tagFrequency.get(tag) - tagCorrect.get(tag));
+            }
+            if (tagIncorrect.containsKey(tag)) {
+                tagFrequency.put(tag, tagFrequency.get(tag) - tagIncorrect.get(tag));
+            }
+        }
+        return tagFrequency;
     }
 
     @PostMapping("/RecommendProblem")

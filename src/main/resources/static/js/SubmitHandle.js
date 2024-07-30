@@ -1,6 +1,7 @@
 $(document).ready(function() {
-    $('#submitHandle').click(function() {
+    $('#fetch-user-btn').click(function() {
         $('#loadingIcon').show();
+        $('#user-info').css("display", "flex");
         var handle = $('#handle').val();
         $.ajax({
             url: '/process',
@@ -9,7 +10,7 @@ $(document).ready(function() {
                 handle: handle,
             },
             success: function(response) {
-                $('#Results').html(response);
+                $('#user-info').html(response);
             },
             complete: function() {
                 $('#loadingIcon').hide();

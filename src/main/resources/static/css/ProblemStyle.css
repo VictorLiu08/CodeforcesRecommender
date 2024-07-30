@@ -1,23 +1,29 @@
-.container {
-    display: flex;
-    justify-content: center;
+.problem-card {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
     align-items: center;
-    background-color: #272140; /* Optional: for visual reference */
+    gap: 1rem;
 }
 
-.problemInfo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ece2e2;
-    border-color: #ece2e2;
-    cursor: pointer;
-    width: 100%;
-    height: 60%;
-    transition: background-color 0.1s ease;
-    border-radius: 100px;
+.problem-card h3 {
+    margin: 0;
+    font-size: 1.25rem;
 }
 
-.problemInfo:hover {
-    background-color: #bdbdbd;
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+}
+
+.card img {
+    max-width: 100px;
+    border-radius: 50%;
+    display: block;
+    margin-bottom: 1rem;
 }

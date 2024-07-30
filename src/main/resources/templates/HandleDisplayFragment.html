@@ -1,14 +1,35 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="../css/HandleStyle.css">
-</head>
-<body>
-    <div th:fragment="HandleDisplayFragment">
-        <p th:text="'Current User: ' + ${handle}" id="LogInDisplay"></p>
-        <p th:text="'Current Rating: ' + ${rating}" id="RatingDisplay"></p>
+<div class="containerUser">
+    <div class="user-details">
+        <img th:src="${titlePhoto}" alt="Profile Picture">
+        <p><strong>Handle:</strong> <span th:text="${handle}"></span></p>
+        <p><strong>Rating:</strong> <span th:text="${rating}"></span></p>
+        <p><strong>Highest Rating:</strong> <span th:text="${maxRating}"></span></p>
+        <p><strong>Rank:</strong> <span th:text="${rank}"></span></p>
+        <p><strong>Highest Rank:</strong> <span th:text="${maxRank}"></span></p>
     </div>
-</body>
-</html>
+    <div class="problem-stats">
+        <h3> Problem Stats</h3>
+        <div class="legend-container">
+            <div class="legend-item">
+                <div class="legend_green"></div>
+                <div class="legend_lbl">Solved</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend_red"></div>
+                <div class="legend_lbl">Unsolved</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend_gray"></div>
+                <div class="legend_lbl">Unattempted</div>
+            </div>
+        </div>
+
+    <ul class="column-list">
+        <li th:each="tag : ${tags}">
+            <span th:text="${tag}"></span>:
+            <span style="color: green" th:text="${tagCorrect[tag.trim()]}"></span> /
+            <span style="color: red" th:text="${tagIncorrect[tag.trim()]}"></span> /
+            <span style="color: gray" th:text="${tagUnattempted[tag.trim()]}"></span>
+        </li>
+    </ul>
+</div></div>

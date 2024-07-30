@@ -1,23 +1,7 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="../css/ProblemStyle.css">
-    <script src="../js/ProblemScript.js"></script>
-</head>
-<body>
-<div class="container">
-    <div th:fragment="ProblemFragment" class="problem" id="problemDiv">
-        <table>
-            <tr th:each="problem : ${displayedProblems}">
-                <td th:id="'problem-' + ${problem.contestId} + '-' + ${problem.index}"
-                    class="problemInfo" th:attr="onclick='openLink(' + ${problem.contestId} + ',\'' + ${problem.index}+ '\')'"
-                    th:text="${problem.contestId} + ' ' + ${problem.index} + ' ' + ${problem.name} + ' ' + ${problem.rating}">
-                </td>
-            </tr>
-        </table>
-    </div>
+<div th:each="problem : ${displayedProblems}" class="card problem-card">
+    <h3 th:text="${problem.name}"></h3>
+    <p><strong>Contest ID:</strong> <span th:text="${problem.contestId}"></span></p>
+    <p><strong>Index:</strong> <span th:text="${problem.index}"></span></p>
+    <p><strong>Rating:</strong> <span th:text="${problem.rating}"></span></p>
+    <a th:href="'https://codeforces.com/problemset/problem/' + ${problem.contestId} + '/' + ${problem.index}" target="_blank">View Problem</a>
 </div>
-</body>
-</html>
