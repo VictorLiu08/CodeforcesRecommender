@@ -250,9 +250,9 @@ public class AppController {
         }
         ModelAndView modelAndView = new ModelAndView("ProblemFragment");
         int randomIndex = (int) (Math.random() * fitProblems.size());
-        displayedProblems.add(fitProblems.get(randomIndex));
+        displayedProblems.add(0, fitProblems.get(randomIndex));
         if (displayedProblems.size() > 5) {
-            displayedProblems.remove(0);
+            displayedProblems.remove(5);
         }
         modelAndView.addObject("displayedProblems", displayedProblems);
         return modelAndView;
@@ -279,9 +279,9 @@ public class AppController {
             }
         }
         int randomIndex = fitTags.get((int) (Math.random() * fitTags.size()));
-        displayedProblems.add(problemset.problemSet.get(randomIndex));
+        displayedProblems.add(0, problemset.problemSet.get(randomIndex));
         if (displayedProblems.size() > 5) {
-            displayedProblems.remove(0);
+            displayedProblems.remove(5);
         }
         modelAndView.addObject("displayedProblems", displayedProblems);
         return modelAndView;
