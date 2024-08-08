@@ -17,12 +17,12 @@ import java.util.*;
 
 @Controller
 public class AppController {
-    
-    ArrayList<Problem> displayedProblems;
+
+
 
     @GetMapping("/")
     public String index() {
-        displayedProblems = new ArrayList<>();
+
         return "index";
     }
 
@@ -251,17 +251,26 @@ public class AppController {
         }
         ModelAndView modelAndView = new ModelAndView("ProblemFragment");
         int randomIndex = (int) (Math.random() * fitProblems.size());
+        ArrayList<Problem> displayedProblems;
+        if(session.getAttribute("displayedProblem") == null){
+            displayedProblems = new ArrayList<>();
+        }
+        else{
+            displayedProblems=(ArrayList<Problem>) session.getAttribute("displayedProblem");
+        }
+
         displayedProblems.add(0, fitProblems.get(randomIndex));
         if (displayedProblems.size() > 5) {
             displayedProblems.remove(5);
         }
+        session.setAttribute("displayedProblem", displayedProblems);
         modelAndView.addObject("displayedProblems", displayedProblems);
         return modelAndView;
     }
 
     @PostMapping("/GenerateProblem")
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public ModelAndView GenerateProblem(@RequestParam String tags, @RequestParam String minRating, @RequestParam String maxRating) throws Exception {
+    public ModelAndView GenerateProblem(HttpSession session, @RequestParam String tags, @RequestParam String minRating, @RequestParam String maxRating) throws Exception {
         Problemset problemset = ApplicationData.getApplicationData();
         ModelAndView modelAndView = new ModelAndView("ProblemFragment");
         ArrayList<Integer> fitTags = new ArrayList<>();
@@ -280,10 +289,18 @@ public class AppController {
             }
         }
         int randomIndex = fitTags.get((int) (Math.random() * fitTags.size()));
+        ArrayList<Problem> displayedProblems;
+        if(session.getAttribute("displayedProblem") == null){
+            displayedProblems = new ArrayList<>();
+        }
+        else{
+            displayedProblems=(ArrayList<Problem>) session.getAttribute("displayedProblem");
+        }
         displayedProblems.add(0, problemset.problemSet.get(randomIndex));
         if (displayedProblems.size() > 5) {
             displayedProblems.remove(5);
         }
+        session.setAttribute("displayedProblem", displayedProblems);
         modelAndView.addObject("displayedProblems", displayedProblems);
         return modelAndView;
     }
