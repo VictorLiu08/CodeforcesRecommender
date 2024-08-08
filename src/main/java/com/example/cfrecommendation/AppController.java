@@ -17,11 +17,12 @@ import java.util.*;
 
 @Controller
 public class AppController {
-
-    static ArrayList<Problem> displayedProblems = new ArrayList<>();
+    
+    ArrayList<Problem> displayedProblems;
 
     @GetMapping("/")
     public String index() {
+        displayedProblems = new ArrayList<>();
         return "index";
     }
 
