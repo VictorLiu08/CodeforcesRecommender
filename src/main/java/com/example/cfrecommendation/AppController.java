@@ -212,7 +212,7 @@ public class AppController {
         HashMap<String, Integer> tagFrequency = new HashMap<>();
         for (Problem problem : problemset.problemSet) {
             if (problem.rating == null) continue;
-            if (Integer.parseInt(problem.rating) < currentRating - 100 || Integer.parseInt(problem.rating) > currentRating + 400) continue;
+            if (Integer.parseInt(problem.rating) < Math.min(3300, currentRating - 100) || Integer.parseInt(problem.rating) > Math.max(1000, currentRating + 300)) continue;
             for (String tag : problem.tags) {
                 tagFrequency.put(tag, tagFrequency.getOrDefault(tag, 0) + 1);
             }
